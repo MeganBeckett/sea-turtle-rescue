@@ -2,6 +2,9 @@
 #                         Exploratory data analysis: Text Analytics                                #
 #                                       Megan Beckett                                              #
 # ==================================================================================================
+# TO INSTALL WORDCLOUD2
+# require(devtools)
+# install_github("lchiffon/wordcloud2")
 
 # LIBRARIES ----------------------------------------------------------------------------------------
 library(dplyr)
