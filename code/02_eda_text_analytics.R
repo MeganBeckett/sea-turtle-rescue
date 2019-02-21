@@ -17,7 +17,7 @@ source(here::here("code/00_data.R"))
 # Analyse the words used in TurtleCharacteristics
 # Remove punctuation
 gsub("[[:punct:]]", "", clean$TurtleCharacteristics)
-clean$TurtleCharacteristics <- gsub("\"", "", clean)
+#clean$TurtleCharacteristics <- gsub("\"", "", clean)
 
 # Create corpus
 corpus = Corpus(VectorSource(clean$TurtleCharacteristics))
@@ -49,5 +49,5 @@ words_small <- words %>%
 
 # Plot word cloud
 wordcloud2(words_small)
-#wordcloud2(words_small, figPath = here::here("turtle.png"))
+wordcloud2(words_small, figPath = here::here("turtle.png"))
 
