@@ -5,53 +5,11 @@
 
 # LIBRARIES ----------------------------------------------------------------------------------------
 library(dplyr)
-library(readr)
-library(ggplot2)
 library(tidyr)
-library(DT)
 library(here)
-library(arsenal)
-library(lubridate)
 
 # READ DATA ----------------------------------------------------------------------------------------
-dirty <- read_csv("raw_data/dirty_data.csv")
-clean <- read_csv("raw_data/cleaned_data.csv")
-# var_def <- read_csv("raw_data/variable_definitions.csv")
-
-# INITIAL VIEW -------------------------------------------------------------------------------------
-summary(dirty)
-summary(clean)
-
-glimpse(dirty)
-
-# quick look at some differences
-unique(dirty$Status)
-unique(clean$Status)
-
-# MODIFY VARIABLE TYPES ----------------------------------------------------------------------------
-# dirty <- dirty %>%
-#   mutate(Date_Caught = mdy(Date_Caught),
-#          Date_Release = mdy(Date_Release))
-#
-# clean <- clean %>%
-#   mutate(Date_Caught = mdy(Date_Caught),
-#          Date_Release = mdy(Date_Release))
-
-# COMPARE CLEAN AND DIRTY --------------------------------------------------------------------------
-# Use compare() to create compare object
-cmp <- compare(dirty, clean)
-cmp
-
-# How many differences are there bbetween dirty and clean?
-n.diffs(cmp)
-
-# Quick look at differences
-head(diffs(cmp))
-
-# which variables have the most differences
-diffs <- diffs(cmp, by.var = TRUE) %>%
-  arrange(desc(n))
-diffs
+source(here::here("code/00_data.R"))
 
 # CREATE TARGET VARIABLE ---------------------------------------------------------------------------
 # First make data long
@@ -72,11 +30,13 @@ target <- target %>%
   mutate(error = ifelse(is.na(error), 1, error))
 
 # Create "error matrix"
+# Not sure yet if this is the right approach
 target_matrix <- target %>%
   select(-value.x, -value.y) %>%
   spread(key = variable, value = error)
 
-
+# Why are so many of text inputs different?
+# Often seems to be if there's a double space
 print(target[80029,3])
 print(target[80029,4])
 
